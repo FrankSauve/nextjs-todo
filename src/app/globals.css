@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+.mozilla-text-font {
+    font-family: "Mozilla Text", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
