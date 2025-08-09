@@ -26,16 +26,23 @@ export type DeleteAllCallback = () => void;
 export default function Home() {
 
   const [todoList, setTodoList] = useState<ITodoList>(() => {
-    const localValue = localStorage.getItem("TODOS");
-    if (localValue == null) return { todos: [] };
 
-    return JSON.parse(localValue);
+    if (typeof window !== 'undefined') {
+      const localValue = localStorage.getItem("TODOS") as string;
+      if (localValue == null) return { todos: [] };
+
+      return JSON.parse(localValue);
+    } else {
+      return { todos: [] };
+    }
   });
 
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("TODOS", JSON.stringify(todoList))
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("TODOS", JSON.stringify(todoList))
+    }
   }, [todoList])
 
   const toggleTodo: ToggleTodoCallback = (id, completed) => {
